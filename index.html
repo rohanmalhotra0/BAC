@@ -414,7 +414,7 @@
         .title-slide .subtitle {
             position: relative;
             z-index: 2;
-            color: #FF6B6B;
+            color: #45B7D1;
             opacity: 0.9;
         }
 
@@ -425,60 +425,6 @@
             opacity: 0.8;
         }
 
-        .title-decoration {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .decoration-line {
-            width: 50px;
-            height: 1px;
-            background: #4ECDC4;
-            opacity: 0.6;
-        }
-
-        .decoration-dot {
-            width: 8px;
-            height: 8px;
-            background: #4ECDC4;
-            border-radius: 50%;
-            margin: 0 15px;
-            opacity: 0.8;
-        }
-
-        .title-stats {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            margin-top: 50px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: 700;
-            font-family: 'Montserrat', sans-serif;
-            color: #4ECDC4;
-            text-shadow: 0 0 15px rgba(78, 205, 196, 0.3);
-        }
-
-        .stat-label {
-            font-size: 1em;
-            font-family: 'Inter', sans-serif;
-            color: rgba(255, 255, 255, 0.7);
-            margin-top: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
 
         /* Responsive design */
         @media (max-width: 768px) {
@@ -490,28 +436,6 @@
                 font-size: 2.5em;
             }
             
-            .title-stats {
-                gap: 30px;
-                flex-wrap: wrap;
-            }
-            
-            .stat-number {
-                font-size: 2em;
-            }
-            
-            .stat-label {
-                font-size: 0.9em;
-            }
-            
-            .decoration-line {
-                width: 30px;
-            }
-            
-            .decoration-dot {
-                width: 6px;
-                height: 6px;
-                margin: 0 10px;
-            }
             
             .framework {
                 flex-direction: column;
@@ -538,28 +462,9 @@
 
     <!-- Slide 1: Title -->
     <div class="slide title-slide">
-        <div class="title-decoration">
-            <div class="decoration-line left"></div>
-            <div class="decoration-dot"></div>
-            <div class="decoration-line right"></div>
-        </div>
         <h1>Love Island ROI & Popularity Analysis</h1>
         <div class="subtitle">Evaluating Contestants for Future Seasons/Spin-Offs</div>
         <div class="tagline">Data-Driven Insights for Production Strategy</div>
-        <div class="title-stats">
-            <div class="stat-item">
-                <div class="stat-number">7</div>
-                <div class="stat-label">Contestants</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">4</div>
-                <div class="stat-label">Weeks</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">3</div>
-                <div class="stat-label">Metrics</div>
-            </div>
-        </div>
     </div>
 
     <!-- Slide 2: Framework -->
