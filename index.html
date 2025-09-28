@@ -14,10 +14,20 @@
 
         body {
             font-family: 'Segoe UI', 'Helvetica Neue', 'Roboto', sans-serif;
-            background: #0a0a0a;
+            background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e, #0f3460);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             color: white;
             line-height: 1.6;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .slide {
@@ -29,18 +39,32 @@
             align-items: center;
             text-align: center;
             position: relative;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideInUp 1s ease forwards;
         }
 
-        .slide:nth-child(odd) {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-        }
+        .slide:nth-child(1) { animation-delay: 0.2s; }
+        .slide:nth-child(2) { animation-delay: 0.4s; }
+        .slide:nth-child(3) { animation-delay: 0.6s; }
+        .slide:nth-child(4) { animation-delay: 0.8s; }
+        .slide:nth-child(5) { animation-delay: 1.0s; }
+        .slide:nth-child(6) { animation-delay: 1.2s; }
+        .slide:nth-child(7) { animation-delay: 1.4s; }
 
-        .slide:nth-child(even) {
-            background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .title-slide {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460) !important;
+            background: rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
         h1 {
@@ -50,6 +74,7 @@
             font-family: 'Montserrat', 'Segoe UI', sans-serif;
             font-weight: 700;
             letter-spacing: -1px;
+            animation: fadeInScale 1.2s ease-out;
         }
 
         h2 {
@@ -58,6 +83,7 @@
             font-family: 'Poppins', 'Segoe UI', sans-serif;
             font-weight: 600;
             letter-spacing: 0.5px;
+            animation: fadeInLeft 1s ease-out 0.3s both;
         }
 
         h3 {
@@ -65,6 +91,40 @@
             margin-bottom: 15px;
             font-family: 'Nunito', 'Segoe UI', sans-serif;
             font-weight: 700;
+            animation: fadeInRight 1s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         .subtitle {
@@ -73,6 +133,7 @@
             font-weight: 300;
             opacity: 0.9;
             font-family: 'Open Sans', 'Segoe UI', sans-serif;
+            animation: fadeInUp 1s ease-out 0.6s both;
         }
 
         .tagline {
@@ -81,6 +142,18 @@
             opacity: 0.8;
             font-family: 'Source Sans Pro', 'Segoe UI', sans-serif;
             font-weight: 400;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .framework {
@@ -90,24 +163,45 @@
             text-align: center;
             width: 100%;
             max-width: 1200px;
+            animation: fadeInUp 1s ease-out 0.8s both;
         }
 
         .framework-card {
-            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            background: rgba(30, 58, 138, 0.8);
+            backdrop-filter: blur(15px);
             padding: 40px 30px;
-            border-radius: 15px;
+            border-radius: 20px;
             color: white;
             flex: 1;
             margin: 0 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            animation: cardFloat 3s ease-in-out infinite;
+        }
+
+        .framework-card:nth-child(1) {
+            animation-delay: 0s;
         }
 
         .framework-card:nth-child(2) {
-            background: linear-gradient(135deg, #1e40af, #2563eb);
+            background: rgba(30, 64, 175, 0.8);
+            animation-delay: 0.5s;
         }
 
         .framework-card:nth-child(3) {
-            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            background: rgba(37, 99, 235, 0.8);
+            animation-delay: 1s;
+        }
+
+        .framework-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
         .framework-card h2 {
@@ -126,16 +220,36 @@
         }
 
         .chart-container {
-            background: rgba(255,255,255,0.05);
-            padding: 20px;
-            border-radius: 15px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
             margin: 30px 0;
             width: 100%;
             max-width: 1200px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: chartSlideIn 1s ease-out;
+            transition: all 0.3s ease;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        @keyframes chartSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .chart-container > div {
@@ -147,13 +261,27 @@
             font-style: italic;
             font-size: 1.3em;
             margin: 30px 0;
-            padding: 20px;
-            background: rgba(78, 205, 196, 0.1);
-            border-radius: 10px;
+            padding: 25px;
+            background: rgba(78, 205, 196, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
             border-left: 4px solid #4ECDC4;
             font-family: 'Inter', 'Segoe UI', sans-serif;
             font-weight: 500;
             max-width: 800px;
+            animation: insightGlow 2s ease-in-out infinite alternate;
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.2);
+        }
+
+        @keyframes insightGlow {
+            from {
+                box-shadow: 0 10px 25px rgba(78, 205, 196, 0.2);
+                border-left-color: #4ECDC4;
+            }
+            to {
+                box-shadow: 0 15px 35px rgba(78, 205, 196, 0.4);
+                border-left-color: #00D4AA;
+            }
         }
 
         .metrics {
@@ -163,16 +291,34 @@
             text-align: center;
             width: 100%;
             max-width: 1000px;
+            animation: fadeInUp 1s ease-out 1s both;
         }
 
         .metric-card {
-            background: rgba(255,255,255,0.1);
-            padding: 30px 20px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(15px);
+            padding: 35px 25px;
+            border-radius: 20px;
             flex: 1;
             margin: 0 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            animation: metricPulse 2s ease-in-out infinite;
+        }
+
+        .metric-card:nth-child(1) { animation-delay: 0s; }
+        .metric-card:nth-child(2) { animation-delay: 0.3s; }
+        .metric-card:nth-child(3) { animation-delay: 0.6s; }
+
+        .metric-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
+
+        @keyframes metricPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
         }
 
         .metric-card h3 {
@@ -191,22 +337,77 @@
 
         .scroll-indicator {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(78, 205, 196, 0.8);
+            bottom: 30px;
+            right: 30px;
+            background: rgba(78, 205, 196, 0.9);
+            backdrop-filter: blur(10px);
             color: white;
-            padding: 10px 15px;
-            border-radius: 25px;
+            padding: 15px 20px;
+            border-radius: 30px;
             font-size: 14px;
             font-family: 'Inter', sans-serif;
             z-index: 1000;
-            animation: pulse 2s infinite;
+            animation: scrollBounce 2s infinite;
+            box-shadow: 0 10px 25px rgba(78, 205, 196, 0.3);
+            border: 1px solid rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        @keyframes pulse {
-            0% { opacity: 0.8; }
-            50% { opacity: 1; }
-            100% { opacity: 0.8; }
+        .scroll-indicator:hover {
+            transform: scale(1.1);
+            background: rgba(78, 205, 196, 1);
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { 
+                opacity: 0.8; 
+                transform: translateY(0);
+            }
+            50% { 
+                opacity: 1; 
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Floating particles background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 1s; }
+        .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 3s; }
+        .particle:nth-child(5) { width: 4px; height: 4px; left: 50%; animation-delay: 4s; }
+        .particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 5s; }
+        .particle:nth-child(7) { width: 3px; height: 3px; left: 70%; animation-delay: 0.5s; }
+        .particle:nth-child(8) { width: 5px; height: 5px; left: 80%; animation-delay: 1.5s; }
+        .particle:nth-child(9) { width: 4px; height: 4px; left: 90%; animation-delay: 2.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            50% { transform: translateY(-100px) rotate(180deg); }
         }
 
         /* Responsive design */
@@ -240,6 +441,17 @@
     </style>
 </head>
 <body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
     <div class="scroll-indicator">Scroll to navigate ↓</div>
 
     <!-- Slide 1: Title -->
@@ -597,16 +809,74 @@
 
         Plotly.newPlot('persona-3d-chart', persona3DData, persona3DLayout);
 
-        // Hide scroll indicator after first scroll
+        // Enhanced scroll animations and interactions
         let hasScrolled = false;
+        let isScrolling = false;
+
+        // Smooth scroll indicator behavior
         window.addEventListener('scroll', function() {
             if (!hasScrolled) {
                 hasScrolled = true;
-                document.querySelector('.scroll-indicator').style.opacity = '0';
+                document.querySelector('.scroll-indicator').style.animation = 'fadeOut 0.5s ease forwards';
                 setTimeout(() => {
                     document.querySelector('.scroll-indicator').style.display = 'none';
                 }, 500);
             }
+
+            // Add scroll-based animations
+            if (!isScrolling) {
+                isScrolling = true;
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 100);
+            }
+        });
+
+        // Add fadeOut animation for scroll indicator
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                to { opacity: 0; transform: translateY(20px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Intersection Observer for slide animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all slides for scroll-triggered animations
+        document.querySelectorAll('.slide').forEach(slide => {
+            observer.observe(slide);
+        });
+
+        // Add hover effects to charts
+        document.querySelectorAll('.chart-container').forEach(container => {
+            container.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            container.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click-to-scroll functionality to scroll indicator
+        document.querySelector('.scroll-indicator').addEventListener('click', function() {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>
