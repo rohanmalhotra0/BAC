@@ -1,47 +1,60 @@
 # Love Island ROI & Popularity Analysis
 
-A polished 7-slide Jupyter notebook presentation analyzing Love Island contestants for future seasons and spin-offs using data science and machine learning.
+A data-driven presentation analyzing Love Island contestants for future seasons and spin-offs using machine learning and interactive visualizations.
 
-## Features
+## 🌐 Live Demo
 
-- **Slide 1**: Title slide with Love Island branding
-- **Slide 2**: Analysis framework (Reach, Engagement, ROI)
-- **Slide 3**: Reach growth analysis with Plotly charts
-- **Slide 4**: Engagement efficiency with PyTorch regression model
-- **Slide 5**: ROI analysis with cost calculations and projections
-- **Slide 6**: Persona clustering with PyTorch autoencoder
-- **Slide 7**: Final recommendation
+Visit the live presentation: [https://yourusername.github.io/love-island-analysis](https://yourusername.github.io/love-island-analysis)
 
-## Requirements
+## 📊 Features
 
-Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+- **Interactive 3D Visualizations** - 3D scatter plots using Plotly
+- **Machine Learning Models** - PyTorch neural networks for predictions
+- **Responsive Design** - Works on desktop, tablet, and mobile
+- **Professional Styling** - Dark theme with modern typography
+- **Scrollable Presentation** - Smooth navigation between slides
 
-## Usage
+## 🎯 Analysis Framework
 
-1. **Run the notebook**: Open `deck.ipynb` in Jupyter
-2. **Execute all cells**: Run all cells to generate the analysis
-3. **Convert to slides**: Use RISE to present as slides
+1. **Reach** - Social media growth across Instagram and TikTok
+2. **Engagement** - Viewer interaction quality and screen time efficiency  
+3. **ROI** - Return on investment considering costs and audience value
 
-### Converting to PDF slides
+## 🏆 Key Findings
 
-```bash
-jupyter nbconvert deck.ipynb --to slides --TemplateExporter.exclude_input=True --post serve
-```
+**Top Recommendation: Waylor Tilliams**
+- Highest ratings: 9.0/10 average
+- Strongest growth: +600K followers
+- Best ROI: $7.6 per $100K investment
 
-## Key Insights
+## 🛠️ Technology Stack
 
-- **Waylor Tilliams** emerges as the top choice with highest ratings, strongest growth, and best ROI
-- **Sustin Ahepard** is the runner-up for global marketability
-- Contestants cluster into two groups: Efficient Fan Favorites vs Global High-Cost Stars
-- Screen time and reach are the strongest predictors of poll ratings
-
-## Technology Stack
-
-- **Data Analysis**: Pandas, NumPy
-- **Visualization**: Plotly
+- **Frontend**: HTML5, CSS3, JavaScript
+- **Visualizations**: Plotly.js
+- **Data Analysis**: Python, Pandas, NumPy
 - **Machine Learning**: PyTorch, Scikit-learn
-- **Presentation**: Jupyter + RISE (Reveal.js night theme)
-# BAC
+- **Deployment**: GitHub Pages
+
+## 📁 Files
+
+- `index.html` - Main presentation file
+- `deck.ipynb` - Jupyter notebook with analysis code
+- `loveIsland.csv` - Dataset
+- `requirements.txt` - Python dependencies
+
+## 🚀 Local Development
+
+1. Clone the repository
+2. Open `index.html` in your browser
+3. For data analysis, run the Jupyter notebook
+
+## 📈 Data Sources
+
+- Contestant performance metrics
+- Social media engagement data
+- Production cost analysis
+- Viewer poll ratings
+
+---
+
+*Built with ❤️ for data-driven entertainment industry insights*
