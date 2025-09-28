@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Island ROI & Popularity Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', 'Roboto', sans-serif;
+            background: #0a0a0a;
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            min-height: 100vh;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .slide:nth-child(odd) {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+        }
+
+        .slide:nth-child(even) {
+            background: linear-gradient(135deg, #0f0f23, #1a1a2e, #16213e);
+        }
+
+        .title-slide {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460) !important;
+        }
+
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.8em;
+            margin-top: 30px;
+            font-weight: 300;
+            opacity: 0.9;
+            font-family: 'Open Sans', 'Segoe UI', sans-serif;
+        }
+
+        .tagline {
+            margin-top: 50px;
+            font-size: 1.2em;
+            opacity: 0.8;
+            font-family: 'Source Sans Pro', 'Segoe UI', sans-serif;
+            font-weight: 400;
+        }
+
+        .framework {
+            display: flex;
+            justify-content: space-around;
+            margin: 50px 0;
+            text-align: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .framework-card {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+            padding: 40px 30px;
+            border-radius: 15px;
+            color: white;
+            flex: 1;
+            margin: 0 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .framework-card:nth-child(2) {
+            background: linear-gradient(135deg, #1e40af, #2563eb);
+        }
+
+        .framework-card:nth-child(3) {
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+        }
+
+        .framework-card h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .framework-card p {
+            font-size: 1.3em;
+            line-height: 1.4;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-weight: 400;
+        }
+
+        .chart-container {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            width: 100%;
+            max-width: 1200px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .chart-container > div {
+            width: 100% !important;
+            height: 500px !important;
+        }
+
+        .insight {
+            font-style: italic;
+            font-size: 1.3em;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(78, 205, 196, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #4ECDC4;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-weight: 500;
+            max-width: 800px;
+        }
+
+        .metrics {
+            display: flex;
+            justify-content: space-around;
+            margin: 50px 0;
+            text-align: center;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            flex: 1;
+            margin: 0 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .metric-card h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-family: 'Nunito', 'Segoe UI', sans-serif;
+            font-weight: 700;
+        }
+
+        .metric-card p {
+            font-size: 1.5em;
+            margin: 0;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            font-weight: 500;
+        }
+
+
+
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(78, 205, 196, 0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+            }
+            
+            h1 {
+                font-size: 2.5em;
+            }
+            
+            .framework {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .framework-card {
+                margin: 0;
+            }
+            
+            .metrics {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .metric-card {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator">Scroll to navigate ↓</div>
+
+    <!-- Slide 1: Title -->
+    <div class="slide title-slide">
+        <h1>Love Island ROI & Popularity Analysis</h1>
+        <div class="subtitle">Evaluating Contestants for Future Seasons/Spin-Offs</div>
+        <div class="tagline">Data-Driven Insights for Production Strategy</div>
+    </div>
+
+    <!-- Slide 2: Framework -->
+    <div class="slide">
+        <h1>Our Analysis Framework</h1>
+        <div class="framework">
+            <div class="framework-card">
+                <h2>Reach</h2>
+                <p>Social media growth and audience expansion across Instagram and TikTok platforms.</p>
+            </div>
+            <div class="framework-card">
+                <h2>Engagement</h2>
+                <p>Viewer interaction quality measured through polls, screen time efficiency, and story views.</p>
+            </div>
+            <div class="framework-card">
+                <h2>ROI</h2>
+                <p>Return on investment considering appearance fees, PR costs, and audience value generated.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Reach Growth -->
+    <div class="slide">
+        <h1>Reach Growth Analysis</h1>
+        <div class="chart-container">
+            <div id="reach-chart" style="width: 100%; height: 500px;"></div>
+        </div>
+        <div class="insight">
+            <strong>Key Insight:</strong> Waylor & Sustin dominate growth, but Waylor does it at lower cost.
+        </div>
+    </div>
+
+    <!-- Slide 4: Engagement -->
+    <div class="slide">
+        <h1>Engagement Efficiency</h1>
+        <div class="chart-container">
+            <div id="engagement-chart" style="width: 100%; height: 500px;"></div>
+        </div>
+        <div class="insight">
+            <strong>Key Insight:</strong> Screen time and reach are the strongest predictors of poll ratings.
+        </div>
+    </div>
+
+    <!-- Slide 5: ROI Analysis -->
+    <div class="slide">
+        <h1>ROI Analysis</h1>
+        <div class="chart-container">
+            <div id="roi-chart" style="width: 100%; height: 500px;"></div>
+        </div>
+        <div class="insight">
+            <strong>Key Insight:</strong> Waylor yields best ROI, Sustin is costly, Clandria underperforms.
+        </div>
+    </div>
+
+    <!-- Slide 6: Persona Clustering -->
+    <div class="slide">
+        <h1>Persona Fit Analysis</h1>
+        <div class="chart-container">
+            <div id="persona-3d-chart" style="width: 100%; height: 500px;"></div>
+        </div>
+        <div class="insight">
+            <strong>Key Insight:</strong> Contestants split into two camps: Efficient Fan Favorites vs Global High-Cost Stars.
+        </div>
+    </div>
+
+    <!-- Slide 7: Recommendation -->
+    <div class="slide">
+        <h1>Our Spin-Off Star: Waylor Tilliams</h1>
+        <div class="metrics">
+            <div class="metric-card">
+                <h3>Highest Ratings</h3>
+                <p>9.0/10 Average</p>
+            </div>
+            <div class="metric-card">
+                <h3>Strongest Growth</h3>
+                <p>+600K Followers</p>
+            </div>
+            <div class="metric-card">
+                <h3>Best ROI</h3>
+                <p>$7.6 per $100K</p>
+            </div>
+        </div>
+        <div class="insight">
+            <strong>Runner-up:</strong> Sustin Ahepard for global marketability
+        </div>
+        <div class="insight">
+            Perfect balance of fan appeal, growth potential, and cost efficiency
+        </div>
+    </div>
+
+    <script>
+        // Sample data for charts
+        const reachData = [
+            {
+                x: [1, 2, 3, 4],
+                y: [500000, 620000, 710000, 800000],
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: 'Waylor - Instagram',
+                line: {color: '#FF6B6B', width: 3},
+                marker: {size: 8}
+            },
+            {
+                x: [1, 2, 3, 4],
+                y: [150000, 180000, 210000, 250000],
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: 'Waylor - TikTok',
+                line: {color: '#FF6B6B', width: 3, dash: 'dash'},
+                marker: {size: 8, symbol: 'diamond'}
+            },
+            {
+                x: [1, 2, 3, 4],
+                y: [2100000, 2400000, 2700000, 2550000],
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: 'Sustin - Instagram',
+                line: {color: '#4ECDC4', width: 3},
+                marker: {size: 8}
+            },
+            {
+                x: [1, 2, 3, 4],
+                y: [400000, 455000, 500000, 530000],
+                type: 'scatter',
+                mode: 'lines+markers',
+                name: 'Sustin - TikTok',
+                line: {color: '#4ECDC4', width: 3, dash: 'dash'},
+                marker: {size: 8, symbol: 'diamond'}
+            }
+        ];
+
+        const reachLayout = {
+            title: {
+                text: 'Reach Growth: Instagram & TikTok Followers Over Time',
+                font: {size: 20, color: 'white'},
+                x: 0.5
+            },
+            xaxis: {
+                title: 'Week Number', 
+                color: 'white',
+                showgrid: true,
+                gridcolor: 'rgba(255,255,255,0.1)',
+                zeroline: false
+            },
+            yaxis: {
+                title: 'Followers/Views', 
+                color: 'white',
+                showgrid: true,
+                gridcolor: 'rgba(255,255,255,0.1)',
+                zeroline: false
+            },
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            font: {color: 'white', size: 12},
+            legend: {
+                x: 0.02, 
+                y: 0.98, 
+                bgcolor: 'rgba(0,0,0,0.7)',
+                bordercolor: 'rgba(255,255,255,0.2)',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 60, t: 60, b: 60},
+            autosize: true
+        };
+
+        Plotly.newPlot('reach-chart', reachData, reachLayout);
+
+        // Engagement chart
+        const engagementData = [
+            {
+                x: [18, 22, 25, 27],
+                y: [7.8, 8.2, 8.6, 8.9],
+                type: 'scatter',
+                mode: 'markers',
+                name: 'Waylor',
+                marker: {
+                    size: [5, 6.2, 7.1, 8],
+                    color: '#FF6B6B',
+                    opacity: 0.7,
+                    line: {width: 2, color: 'white'}
+                }
+            },
+            {
+                x: [33, 32, 29, 27],
+                y: [8.5, 8.3, 7.6, 7.2],
+                type: 'scatter',
+                mode: 'markers',
+                name: 'Keah',
+                marker: {
+                    size: [14, 15.2, 13.5, 12],
+                    color: '#4ECDC4',
+                    opacity: 0.7,
+                    line: {width: 2, color: 'white'}
+                }
+            },
+            {
+                x: [34, 32, 31, 30],
+                y: [7.9, 8.1, 8.4, 8.0],
+                type: 'scatter',
+                mode: 'markers',
+                name: 'Sustin',
+                marker: {
+                    size: [21, 24, 27, 25.5],
+                    color: '#45B7D1',
+                    opacity: 0.7,
+                    line: {width: 2, color: 'white'}
+                }
+            }
+        ];
+
+        const engagementLayout = {
+            title: {
+                text: 'Engagement Efficiency: Screen Time vs Poll Rating',
+                font: {size: 20, color: 'white'},
+                x: 0.5
+            },
+            xaxis: {
+                title: 'Average Screen Time per Episode (minutes)', 
+                color: 'white',
+                showgrid: true,
+                gridcolor: 'rgba(255,255,255,0.1)',
+                zeroline: false
+            },
+            yaxis: {
+                title: 'Viewer Poll Rating (out of 10)', 
+                color: 'white',
+                showgrid: true,
+                gridcolor: 'rgba(255,255,255,0.1)',
+                zeroline: false
+            },
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            font: {color: 'white', size: 12},
+            legend: {
+                x: 0.02, 
+                y: 0.98, 
+                bgcolor: 'rgba(0,0,0,0.7)',
+                bordercolor: 'rgba(255,255,255,0.2)',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 60, t: 60, b: 60},
+            autosize: true
+        };
+
+        Plotly.newPlot('engagement-chart', engagementData, engagementLayout);
+
+        // ROI chart
+        const roiData = [{
+            x: ['Waylor', 'Muda', 'Keah', 'Sustin', 'Clandria'],
+            y: [7.6, 6.2, 3.1, 2.8, 4.1],
+            type: 'bar',
+            marker: {
+                color: [7.6, 6.2, 3.1, 2.8, 4.1],
+                colorscale: 'Viridis'
+            },
+            text: ['$7.6', '$6.2', '$3.1', '$2.8', '$4.1'],
+            textposition: 'outside'
+        }];
+
+        const roiLayout = {
+            title: {
+                text: 'ROI Analysis: Poll Rating per $100K Investment',
+                font: {size: 20, color: 'white'},
+                x: 0.5
+            },
+            xaxis: {
+                title: 'Contestant', 
+                color: 'white',
+                showgrid: true,
+                gridcolor: 'rgba(255,255,255,0.1)',
+                zeroline: false
+            },
+            yaxis: {
+                title: 'ROI per $100K', 
+                color: 'white',
+                showgrid: true,
+                gridcolor: 'rgba(255,255,255,0.1)',
+                zeroline: false
+            },
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            font: {color: 'white', size: 12},
+            margin: {l: 60, r: 60, t: 60, b: 60},
+            autosize: true
+        };
+
+        Plotly.newPlot('roi-chart', roiData, roiLayout);
+
+        // 3D Persona clustering chart
+        const persona3DData = [{
+            x: [0.2, 0.8, 0.6, 0.9, 0.3],
+            y: [0.7, 0.4, 0.3, 0.5, 0.2],
+            z: [0.8, 0.3, 0.4, 0.2, 0.6],
+            type: 'scatter3d',
+            mode: 'markers+text',
+            name: 'Contestants',
+            marker: {
+                size: 8,
+                color: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'],
+                opacity: 0.8,
+                line: {width: 2, color: 'white'}
+            },
+            text: ['Waylor', 'Muda', 'Keah', 'Sustin', 'Clandria'],
+            textposition: 'top center',
+            textfont: {color: 'white', size: 14}
+        }];
+
+        const persona3DLayout = {
+            title: {
+                text: '3D Contestant Persona Analysis: Reach vs Engagement vs ROI',
+                font: {size: 20, color: 'white'},
+                x: 0.5
+            },
+            scene: {
+                xaxis: {
+                    title: 'Reach Score',
+                    color: 'white',
+                    backgroundcolor: 'rgba(0,0,0,0)',
+                    gridcolor: 'rgba(255,255,255,0.1)',
+                    zerolinecolor: 'rgba(255,255,255,0.2)'
+                },
+                yaxis: {
+                    title: 'Engagement Score',
+                    color: 'white',
+                    backgroundcolor: 'rgba(0,0,0,0)',
+                    gridcolor: 'rgba(255,255,255,0.1)',
+                    zerolinecolor: 'rgba(255,255,255,0.2)'
+                },
+                zaxis: {
+                    title: 'ROI Score',
+                    color: 'white',
+                    backgroundcolor: 'rgba(0,0,0,0)',
+                    gridcolor: 'rgba(255,255,255,0.1)',
+                    zerolinecolor: 'rgba(255,255,255,0.2)'
+                },
+                bgcolor: 'rgba(0,0,0,0)',
+                camera: {
+                    eye: {x: 1.5, y: 1.5, z: 1.5}
+                }
+            },
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            font: {color: 'white', size: 12},
+            showlegend: false,
+            margin: {l: 60, r: 60, t: 60, b: 60},
+            autosize: true
+        };
+
+        Plotly.newPlot('persona-3d-chart', persona3DData, persona3DLayout);
+
+        // Hide scroll indicator after first scroll
+        let hasScrolled = false;
+        window.addEventListener('scroll', function() {
+            if (!hasScrolled) {
+                hasScrolled = true;
+                document.querySelector('.scroll-indicator').style.opacity = '0';
+                setTimeout(() => {
+                    document.querySelector('.scroll-indicator').style.display = 'none';
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
