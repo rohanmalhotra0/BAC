@@ -375,39 +375,184 @@
             scroll-behavior: smooth;
         }
 
-        /* Floating particles background */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+        /* Enhanced title slide effects */
+        .title-slide {
+            background: rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title-slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(78, 205, 196, 0.1), transparent);
+            animation: shimmer 3s ease-in-out infinite;
             z-index: -1;
         }
 
-        .particle {
+        .title-slide::after {
+            content: '';
             position: absolute;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(78, 205, 196, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(255, 107, 107, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 50%, rgba(69, 183, 209, 0.1) 0%, transparent 50%);
+            animation: pulseGlow 4s ease-in-out infinite;
+            z-index: -1;
         }
 
-        .particle:nth-child(1) { width: 4px; height: 4px; left: 10%; animation-delay: 0s; }
-        .particle:nth-child(2) { width: 6px; height: 6px; left: 20%; animation-delay: 1s; }
-        .particle:nth-child(3) { width: 3px; height: 3px; left: 30%; animation-delay: 2s; }
-        .particle:nth-child(4) { width: 5px; height: 5px; left: 40%; animation-delay: 3s; }
-        .particle:nth-child(5) { width: 4px; height: 4px; left: 50%; animation-delay: 4s; }
-        .particle:nth-child(6) { width: 6px; height: 6px; left: 60%; animation-delay: 5s; }
-        .particle:nth-child(7) { width: 3px; height: 3px; left: 70%; animation-delay: 0.5s; }
-        .particle:nth-child(8) { width: 5px; height: 5px; left: 80%; animation-delay: 1.5s; }
-        .particle:nth-child(9) { width: 4px; height: 4px; left: 90%; animation-delay: 2.5s; }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            50% { transform: translateY(-100px) rotate(180deg); }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+
+        .title-slide h1 {
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(45deg, #4ECDC4, #44A08D, #4ECDC4, #00D4AA);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientText 3s ease infinite;
+            text-shadow: none;
+        }
+
+        @keyframes gradientText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .title-slide .subtitle {
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(45deg, #FF6B6B, #FF8E8E, #FF6B6B);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientText 2.5s ease infinite reverse;
+        }
+
+        .title-slide .tagline {
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(45deg, #45B7D1, #96CEB4, #45B7D1);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientText 2s ease infinite;
+        }
+
+        .title-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .decoration-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #4ECDC4, transparent);
+            animation: lineGlow 2s ease-in-out infinite;
+        }
+
+        .decoration-line.left {
+            animation-delay: 0s;
+        }
+
+        .decoration-line.right {
+            animation-delay: 0.5s;
+        }
+
+        .decoration-dot {
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #4ECDC4, #00D4AA);
+            border-radius: 50%;
+            margin: 0 20px;
+            animation: dotPulse 1.5s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
+        }
+
+        @keyframes lineGlow {
+            0%, 100% { opacity: 0.5; transform: scaleX(1); }
+            50% { opacity: 1; transform: scaleX(1.2); }
+        }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(78, 205, 196, 0.6); }
+            50% { transform: scale(1.3); box-shadow: 0 0 30px rgba(78, 205, 196, 0.9); }
+        }
+
+        .title-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 50px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-item {
+            text-align: center;
+            animation: statFloat 3s ease-in-out infinite;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0s; }
+        .stat-item:nth-child(2) { animation-delay: 0.5s; }
+        .stat-item:nth-child(3) { animation-delay: 1s; }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(45deg, #4ECDC4, #00D4AA);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+            animation: numberGlow 2s ease-in-out infinite;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            font-family: 'Inter', sans-serif;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes statFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes numberGlow {
+            0%, 100% { text-shadow: 0 0 30px rgba(78, 205, 196, 0.5); }
+            50% { text-shadow: 0 0 50px rgba(78, 205, 196, 0.8); }
         }
 
         /* Responsive design */
@@ -418,6 +563,29 @@
             
             h1 {
                 font-size: 2.5em;
+            }
+            
+            .title-stats {
+                gap: 30px;
+                flex-wrap: wrap;
+            }
+            
+            .stat-number {
+                font-size: 2.5em;
+            }
+            
+            .stat-label {
+                font-size: 1em;
+            }
+            
+            .decoration-line {
+                width: 40px;
+            }
+            
+            .decoration-dot {
+                width: 10px;
+                height: 10px;
+                margin: 0 15px;
             }
             
             .framework {
@@ -441,24 +609,32 @@
     </style>
 </head>
 <body>
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
     <div class="scroll-indicator">Scroll to navigate ↓</div>
 
     <!-- Slide 1: Title -->
     <div class="slide title-slide">
+        <div class="title-decoration">
+            <div class="decoration-line left"></div>
+            <div class="decoration-dot"></div>
+            <div class="decoration-line right"></div>
+        </div>
         <h1>Love Island ROI & Popularity Analysis</h1>
         <div class="subtitle">Evaluating Contestants for Future Seasons/Spin-Offs</div>
         <div class="tagline">Data-Driven Insights for Production Strategy</div>
+        <div class="title-stats">
+            <div class="stat-item">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Contestants</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Weeks</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Metrics</div>
+            </div>
+        </div>
     </div>
 
     <!-- Slide 2: Framework -->
